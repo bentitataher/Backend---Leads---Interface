@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 const passport = require('passport')
 
-// Inscription user - un commentaire de test pour git
+// Inscription user - un commentaire de test pour git encore
 router.post('/signup', function (req, res, next) {
     User.findOne({ email: req.body.email }).then(user => {
         if (user) {
