@@ -18,6 +18,14 @@ const UserSchema = new Schema({
     password: {
         type: String,
         required: [true, 'Le password est obligatoire']
+    },
+    statut: {
+        type: String,
+        required: [false, 'Déterminer Le statut du compte']
+    },
+    rôle: {
+        type: String,
+        required: [false, "Déterminer le rôle de l'utilisateur"]
     }
 })
 
