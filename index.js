@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const cors = require('cors');
 
 // Installation express app
 const app = express();
@@ -9,7 +10,11 @@ const app = express();
 mongoose.connect('mongodb://localhost/leadsgo');
 mongoose.Promise = global.Promise;
 
+// Configuration Body parser
 app.use(bodyParser.json())
+
+// Configuration cors
+app.use(cors({ origin : 'http://localhost:4200' }));
 
 // Initialisation des routes
 app.use('/api', require('./routes/api'));

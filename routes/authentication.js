@@ -20,6 +20,8 @@ router.post('/signup', function (req, res, next) {
                     });
                 } else {
                     req.body.password = hash;
+                    req.body.statut = "inactif";
+                    req.body.rôle = "nouveauCompte"
                     User.create(req.body)
                         .then(function (user) {
                             res.send(user)
