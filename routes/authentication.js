@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/users');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken')
-const passport = require('passport')
+const jwt = require('jsonwebtoken');
+const passport = require('passport');
+const nodemailer = require('nodemailer');
 
 // Inscription user
 router.post('/signup', function (req, res, next) {
@@ -73,6 +74,8 @@ router.post('/login', (req, res) => {
             })
         })
 });
+
+// Forget password
 
 
 module.exports = router;
