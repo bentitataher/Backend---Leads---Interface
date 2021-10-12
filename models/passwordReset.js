@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// Schema de password forget
+// Schema de forget password
 const PasswordForgetSchema = new Schema({
     email : {
         type: String,
