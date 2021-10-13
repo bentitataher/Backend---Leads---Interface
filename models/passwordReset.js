@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// Schema de forget password
+// Schema de password forget
 const PasswordForgetSchema = new Schema({
     email: {
         type: String,
@@ -13,12 +13,11 @@ const PasswordForgetSchema = new Schema({
         require: [false, 'token champs']
     },
 
-    createdAt: {
-        type: Date, 
-        default: Date.now,
-        expires: '2m', // this is the expiry time
-        
-    }
+    // createdAt: {
+    //     type: Date,
+    //     expires: '2m',
+    //     default: Date.now
+    //   }
 
 });
 
