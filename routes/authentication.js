@@ -91,7 +91,7 @@ router.post('/password-forget', (req, res) => {
                         from: req.body.email,
                         to: 'bentitataher@gmail.com',
                         subject: 'Sent mail from mailApi with req.body.email',
-                        html: `Clickti this <a href="http://localhost:4200/#/password-reset/${createdToken.token}">link</a> to reset your password.`,
+                        html: `Clickti this <a href="http://localhost:4200/#/reset-password/${createdToken.token}">link</a> to reset your password.`,
                     };
                     // email transport configuration
 
@@ -127,6 +127,40 @@ router.post('/password-forget', (req, res) => {
             }
         })
 })
+
+// Reset password
+router.post('/password-reset', (req, res) => {
+    PasswordReset.findOne({ token: req.body.token })
+        .then((reset) => {
+            if (reset) {
+
+
+                bcrypt.hash(req.body.password, 10, (err, hash) => {
+
+                    if (err) {
+                        return res.status(500).json({
+                            error: err
+                        });
+                    }
+
+                    else {
+                        req.body.password = hash;
+                        User.findOneAndUpdate({ email: reset.email }, req.body)
+                            .then(() => {
+                                User.findOne({ email: reset.email })
+                                    .then((user) => {
+                                        res.status(200).json({ user })
+                                    })
+                            })
+                    }
+                });
+
+            } else {
+                res.status(201).json({ message: "Taken doesn't exists !" })
+            }
+        })
+})
+
 
 
 module.exports = router;
