@@ -19,6 +19,7 @@ app.use(cors({ origin : 'http://localhost:4200' }));
 // Initialisation des routes
 app.use('/api', require('./routes/api'));
 app.use('/authentication', require('./routes/authentication'));
+app.use('/enregistrement', require('./routes/enregistrement'));
 
 // Middleware gestion d'erreurs
 app.use( (err, req, res, next)=>{
