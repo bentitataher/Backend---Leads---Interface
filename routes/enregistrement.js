@@ -5,7 +5,7 @@ const Enregistrement = require('../models/enregistrement');
 router.post('/ajout', function (req, res, next) {
     Enregistrement.create(req.body)
                   .then((enregistrement) =>{
-                      res.status(400).send(req.body)
+                      res.status(203).send(req.body)
                   })
 });
 
