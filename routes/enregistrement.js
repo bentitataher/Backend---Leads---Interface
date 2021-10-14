@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
-    if (file.mimetype == 'image/jpeg' || file.mimetype == 'image/png') {
+    if (file.mimetype == 'image/jpeg' || file.mimetype == 'image/png'  || file.mimetype == 'application/pdf') {
         cb(null, true);
     } else {
         cb(null, false);
@@ -25,12 +25,15 @@ const fileFilter = (req, file, cb) => {
 }
 
 const upload = multer({ storage: storage, fileFilter : fileFilter})
+// const upload = multer({ storage: storage})
 
 router.post('/ajout', upload.single('image') , function (req, res, next) {
+    
     req.body.enregistrement = req.file.path
     Enregistrement.create(req.body)
                   .then((enregistrement) =>{
-                      res.status(209).send(enregistrement)
+                      res.status(209).send(enregistrement);
+                      console.log(req.file);
                   })
 });
 
