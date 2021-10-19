@@ -7,34 +7,34 @@ const multer = require('multer');
 const path = require('path');
 
 const storage = multer.diskStorage({
-    destination: (req, file, cb) =>{
+    destination: (req, file, cb) => {
         cb(null, 'uploads');
     },
-    filename: (res, file, cb) =>{
+    filename: (res, file, cb) => {
         const newFileName = Date.now() + path.extname(file.originalname);
         cb(null, newFileName)
     }
 });
 
 const fileFilter = (req, file, cb) => {
-    if (file.mimetype == 'image/jpeg' || file.mimetype == 'image/png'  || file.mimetype == 'application/pdf') {
+    if (file.mimetype == 'video/mp4' ||
+        file.mimetype == 'audio/mpeg') {
         cb(null, true);
     } else {
         cb(null, false);
     }
 }
 
-const upload = multer({ storage: storage, fileFilter : fileFilter})
-// const upload = multer({ storage: storage})
+const upload = multer({ storage: storage, fileFilter: fileFilter })
 
-router.post('/ajout', upload.single('image') , function (req, res, next) {
-    
+router.post('/ajout', upload.single('image'), function (req, res, next) {
+
     req.body.enregistrement = req.file.path
     Enregistrement.create(req.body)
-                  .then((enregistrement) =>{
-                      res.status(209).send(enregistrement);
-                      console.log(req.file);
-                  })
+        .then((enregistrement) => {
+            res.status(209).send(enregistrement);
+            console.log(req.file);
+        })
 });
 
 module.exports = router;
