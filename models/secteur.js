@@ -3,14 +3,14 @@ const Schema = mongoose.Schema;
 
 // Schema Secteur
 const SecteurSchema = new Schema({
-    descriptionSecteur : {
+    description : {
         type: String,
         require: [false, 'Champs description secteur obligatoire']
     },
 
     secteur : {
         type: String,
-        require: [false, 'Champs secteur obligatoire']
+        require: [true, 'Champs secteur obligatoire']
     }
  
 });
