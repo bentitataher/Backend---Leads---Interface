@@ -23,7 +23,7 @@ const UserSchema = new Schema({
         type: String,
         required: [false, 'Déterminer Le statut du compte']
     },
-    rôle: {
+    role: {
         type: String,
         required: [false, "Déterminer le rôle de l'utilisateur"]
     }
