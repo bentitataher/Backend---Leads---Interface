@@ -17,7 +17,7 @@ router.get('/', (req, res, next)=>{
       })  
     });
 
-// Ajout utilisateur par Admin
+// Ajout utilisateur : Admin
 router.post('/signup', function (req, res, next) {
   User.findOne({ email: req.body.email }).then(user => {
       if (user) {
