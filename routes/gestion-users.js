@@ -68,4 +68,12 @@ router.put('/:id', function (req, res) {
 
 });
 
+// Supprimer utilisateur : Admin
+router.delete('/:id', (req, res) =>{
+  User.findByIdAndDelete({_id: req.params.id})
+      .then( (userDeleted) =>{
+          res.status(201).json(userDeleted);
+      });  
+});
+
 module.exports = router;
