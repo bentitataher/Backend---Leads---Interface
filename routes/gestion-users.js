@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require('../models/users');
 const bcrypt = require('bcrypt');
 
+
 //Get tous les utilisateur de la db
 router.get('/', (req, res, next)=>{
     User.find({}).then( (users)=>{
@@ -42,15 +43,29 @@ router.post('/signup', function (req, res, next) {
   });
 });
 
-// Modifier utilisateur : Admin
-router.put('/:id', (req,res) =>{
-  User.findByIdAndUpdate({_id: req.params.id}, req.body)
-      .then( () =>{
-          User.findOne({_id: req.params.id})
-              .then(function(userUpdated){
-                  res.status(299).json(userUpdated)
+// Modification utilisateur : Admin
+router.put('/:id', function (req, res) {
+  
+  bcrypt.hash(req.body.password, 10, (err, hash) => {
+      if (err) {
+          return res.status(500).json({
+              error: err
+          });
+      }
+      else {
+          req.body.password = hash;
+          User.findByIdAndUpdate({ _id: req.params.id }, req.body)
+              .then(function () {
+                  User.findOne({ _id: req.params.id })
+                      .then(function (userUpdated) {
+                          res.status(299).send(userUpdated)
+                      });
               });
-      });
+      }
+  });
+
+
+
 });
 
 module.exports = router;
