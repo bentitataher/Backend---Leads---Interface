@@ -42,5 +42,15 @@ router.post('/signup', function (req, res, next) {
   });
 });
 
+// Modifier utilisateur : Admin
+router.put('/:id', (req,res) =>{
+  User.findByIdAndUpdate({_id: req.params.id}, req.body)
+      .then( () =>{
+          User.findOne({_id: req.params.id})
+              .then(function(userUpdated){
+                  res.status(299).json(userUpdated)
+              });
+      });
+});
 
 module.exports = router;
